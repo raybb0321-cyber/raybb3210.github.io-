@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夢想製造所Dream Maker - 專屬女性的裝潢設計與服務</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #4b5563;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background-color: #f9a8d4;
+            border-radius: 9999px;
+        }
+        .service-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .cta-button {
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .cta-button:hover {
+            background-color: #ec4899;
+            transform: scale(1.05);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #d946ef;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #packageModal.flex, #servicesModal.flex {
+            display: flex;
+        }
+        #packageModal .scale-100, #servicesModal .scale-100 {
+            transform: scale(1);
+        }
+        #packageModal .opacity-100, #servicesModal .opacity-100 {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg py-4 px-6 fixed w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-pink-500">夢想製造所Dream Maker</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#services" class="text-gray-600 hover:text-pink-500 transition duration-300">服務項目</a>
+                <a href="#portfolio" class="text-gray-600 hover:text-pink-500 transition duration-300">精選案例</a>
+                <a href="#blog" class="text-gray-600 hover:text-pink-500 transition duration-300">裝潢小知識</a>
+                <a href="#contact" class="text-white bg-pink-500 rounded-full px-4 py-2 hover:bg-pink-600 transition duration-300">立即諮詢</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Sections Container -->
+    <div id="main-content">
+        <!-- Hero Section -->
+        <header id="home" class="bg-white pt-24 pb-16 text-center rounded-b-3xl">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl font-bold text-gray-800 leading-tight mb-4">
+                    讓妳的夢想空間，從這裡開始
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                    **夢想製造所**是專為女性打造的**一站式全方位裝潢解決方案**。我們不僅理解妳對美感的獨特追求，更重視每一個細節。從最初的空間規劃、精準預算評估，到最後的燈具安裝與軟裝佈置，我們的專業團隊將陪伴妳度過每一個階段。不論是**美業工作室、商業空間、咖啡廳、服飾店，或是居家裝潢**，只要是10坪內空間，皆適用**18.8萬**的超值方案。**超過10坪的坪數，將按比例酌收增加的費用**，讓妳的裝潢旅程變得輕鬆、透明且充滿樂趣。妳的夢想空間，將在我們的專業與細膩服務中完美呈現。
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#free-services-page" class="cta-button bg-pink-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg">
+                        探索我們的服務
+                    </a>
+                    <a href="#package-page" class="cta-button bg-fuchsia-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg">
+                        點我了解 18.8 萬方案
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- AI Space Designer Section -->
+        <section id="ai-designer" class="py-20 px-6">
+            <div class="container mx-auto text-center rounded-3xl p-8 shadow-2xl bg-white">
+                <h2 class="section-title text-center mb-6">✨ AI 空間設計師 ✨</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+                    告訴我們妳的夢想空間，讓 AI 為妳量身打造專屬的裝潢靈感和改造計畫！
+                </p>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <textarea id="promptInput" rows="5" placeholder="例如：我希望改造我的10坪臥室，關鍵字是「溫馨」、「文青風」、「收納」。" class="w-full p-4 rounded-xl border-2 border-pink-200 focus:outline-none focus:border-pink-500 transition duration-300"></textarea>
+                    <div class="flex items-center justify-center space-x-4">
+                        <button id="generateBtn" class="cta-button bg-purple-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg flex items-center justify-center">
+                            生成設計靈感
+                        </button>
+                        <div id="loadingIndicator" class="loader hidden"></div>
+                    </div>
+                </div>
+                <div id="resultOutput" class="mt-12 text-left p-8 bg-gray-50 rounded-3xl shadow-inner hidden">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">妳的專屬設計靈感來囉！</h3>
+                    <div id="designContent" class="prose max-w-none text-gray-700"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="section-title text-center mb-12">服務項目</h2>
+                <p class="text-center text-gray-600 text-lg mb-12">我們將繁瑣的裝潢服務，拆解成妳能輕鬆理解的各項細節，讓妳找到最適合自己的服務。</p>
+
+                <!-- Full-Service -->
+                <div class="bg-white rounded-3xl p-8 shadow-xl mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-8">一站式服務 - 統包裝潢</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-xl font-semibold text-pink-500 mb-2">統包裝潢的服務流程</h4>
+                            <ul class="list-decimal list-outside space-y-2 text-gray-600 pl-5">
+                                <li><b>初步諮詢與現場評估：</b>與統包商約定時間進行初步諮詢，並安排到現場勘查，丈量空間尺寸並了解業主需求與預算。</li>
+                                <li><b>圖面與報價製作：</b>統包商根據現場狀況與業主溝通後，製作初步的平面配置圖與報價單，說明施工範圍與費用結構。</li>
+                                <li><b>簽訂合約：</b>在雙方確認圖面與報價內容無誤後，正式簽訂統包合約，其中需明確列出施工範圍、費用、付款方式、保固約定等細節。</li>
+                                <li><b>施工階段：</b>統包商負責安排及調度各工班進行現場施工，並依照工程進度收取費用。</li>
+                                <li><b>完工驗收與交屋：</b>工程完成後，由統包商進行驗收，並在最終驗收合格後將案件交付給業主。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-pink-500 mb-2">統包裝潢的優點</h4>
+                            <ul class="list-disc list-outside space-y-2 text-gray-600 pl-5">
+                                <li><b>溝通單純，省時省力：</b>業主只需要與統包工頭一位窗口溝通，無需面對多個不同工種的師傅，大幅減少協調時間和精力。</li>
+                                <li><b>責任清楚，避免糾紛：</b>所有裝潢工程都由同一家公司負責，一旦發生問題，責任歸屬明確，較不容易產生責任推卸的狀況。</li>
+                                <li><b>成本較低：</b>由於免收設計費，統包裝潢的總體費用相對較低，特別適合以基礎工程機能為主的裝修需求。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-pink-500 mb-2">統包裝潢的適用時機</h4>
+                            <ul class="list-disc list-outside space-y-2 text-gray-600 pl-5">
+                                <li><b>時間有限的屋主：</b>若您沒有時間或精力去自行發包和監工，統包服務是個不錯的選擇。</li>
+                                <li><b>需求明確的裝修案：</b>當您對室內風格與美感要求不高，主要希望將基礎工程做好、滿足基本機能時，可以考慮統包服務。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A La Carte Services -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Interior Design -->
+                    <div class="service-card bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4">室內設計與規劃</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><b>居家空間設計</b>：客廳、臥室、廚房、衛浴改造，打造專屬風格。</li>
+                            <li><li><b>商業空間設計</b>：為美業工作室、小型辦公室量身打造。</li>
+                            <li><b>軟裝佈置</b>：燈飾、窗簾、家飾品搭配，讓家更有個性。</li>
+                        </ul>
+                    </div>
+                    <!-- Construction -->
+                    <div class="service-card bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4">基礎與裝潢工程</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><b>基礎工程</b>：拆除、泥作、水電線路配置、壁癌處理。</li>
+                            <li><b>裝潢工程</b>：木工、油漆、貼磚、天花板、隔間。</li>
+                            <li><b>設備工程</b>：廚具、衛浴設備、燈具安裝。</li>
+                        </ul>
+                    </div>
+                    <!-- Special Services -->
+                    <div class="service-card bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4">統籌與特殊服務</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><b>工程統籌</b>：工班發包、建材採購、現場監工，為妳省心省力。</li>
+                            <li><b>垃圾清運</b>：裝潢後垃圾不用妳操心，我們幫妳處理乾淨。</li>
+                            <li><b>淘寶代訂代安裝</b>：輕鬆搞定淘寶家具、燈具，專業安裝不煩惱。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-20 bg-gray-100 px-6">
+            <div class="container mx-auto">
+                <h2 class="section-title text-center mb-12">精選案例</h2>
+                <p class="text-center text-gray-600 text-lg mb-4">從我們的成功案例中，找到妳的裝潢靈感。</p>
+                <p class="text-center text-gray-500 text-sm mb-12">點擊卡片直接連結到 Pinterest 瀏覽更多美圖！</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Case Study 1: 溫馨北歐風 -->
+                    <a href="https://www.pinterest.com/search/pins/?q=溫馨北歐風裝潢" target="_blank" class="block bg-white rounded-3xl shadow-lg overflow-hidden service-card">
+                        <div class="p-8">
+                            <h3 class="text-xl font-semibold text-gray-700">溫馨北歐風</h3>
+                            <p class="text-gray-600 text-sm mt-2">
+                                簡約明亮的空間，搭配木質傢俱和柔和色調，營造出溫暖舒適的氛圍，讓妳每天回家都能徹底放鬆。
+                            </p>
+                        </div>
+                    </a>
+                    <!-- Case Study 2: 日系無印風 -->
+                    <a href="https://www.pinterest.com/search/pins/?q=日系無印風裝潢" target="_blank" class="block bg-white rounded-3xl shadow-lg overflow-hidden service-card">
+                        <div class="p-8">
+                            <h3 class="text-xl font-semibold text-gray-700">日系無印風</h3>
+                            <p class="text-gray-600 text-sm mt-2">
+                                崇尚自然與簡約，以淺木色和白色為主調，強調實用與機能性，打造寧靜且充滿禪意的生活空間。
+                            </p>
+                        </div>
+                    </a>
+                    <!-- Case Study 3: 簡約現代風 -->
+                    <a href="https://www.pinterest.com/search/pins/?q=簡約現代風裝潢" target="_blank" class="block bg-white rounded-3xl shadow-lg overflow-hidden service-card">
+                        <div class="p-8">
+                            <h3 class="text-xl font-semibold text-gray-700">簡約現代風</h3>
+                            <p class="text-gray-600 text-sm mt-2">
+                                俐落的線條、乾淨的空間，搭配中性色和金屬元素，呈現出簡潔、時尚且充滿個性的現代感。
+                            </p>
+                        </div>
+                    </a>
+                    <!-- Case Study 4: 輕奢法式風 -->
+                    <a href="https://www.pinterest.com/search/pins/?q=輕奢法式風裝潢" target="_blank" class="block bg-white rounded-3xl shadow-lg overflow-hidden service-card">
+                        <div class="p-8">
+                            <h3 class="text-xl font-semibold text-gray-700">輕奢法式風</h3>
+                            <p class="text-600 text-sm mt-2">
+                                運用優雅的線板、精緻的擺飾和柔和的色調，營造出法式浪漫與輕奢感，讓妳的家如精品般迷人。
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="section-title text-center mb-12">裝潢小知識</h2>
+                <p class="text-center text-gray-600 text-lg mb-12">我們整理了各種裝潢知識，讓妳從小白變專家。</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Blog Post 1 -->
+                    <a href="#first-time-tips-page" class="block bg-white rounded-3xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">第一次裝潢就上手！</h3>
+                        <p class="text-gray-600 text-sm">
+                            妳是不是覺得裝潢像一場迷霧？別再煩惱了！這裡有我們為妳準備的**魔法地圖**，從零開始，帶妳輕鬆穿越所有複雜流程，保證讓妳的裝潢之旅比看偶像劇還簡單又夢幻！
+                        </p>
+                        <p class="text-pink-500 hover:underline mt-4 inline-block">閱讀更多 &raquo;</p>
+                    </a>
+                    <!-- Blog Post 2 -->
+                    <a href="#taobao-tips-page" class="block bg-white rounded-3xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">淘寶傢俱購買指南</h3>
+                        <p class="text-gray-600 text-sm">
+                            輕鬆搞定淘寶家具、燈具，從安全打包到專業安裝，每一個環節都為妳把關，讓妳安心擁有夢想好物。
+                        </p>
+                        <p class="text-pink-500 hover:underline mt-4 inline-block">閱讀更多 &raquo;</p>
+                    </a>
+                    <!-- Blog Post 3 -->
+                    <a href="#color-tips-page" class="block bg-white rounded-3xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">用對顏色，改變心情</h3>
+                        <p class="text-gray-600 text-sm">
+                            顏色不只是視覺，更是情緒的魔法師！這裡為妳揭開色彩心理學的神秘面紗，告訴妳如何用對顏色，打造出最能療癒妳身心靈的專屬空間，讓每一天都充滿正能量。
+                        </p>
+                        <p class="text-pink-500 hover:underline mt-4 inline-block">閱讀更多 &raquo;</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- First Time Tips Page -->
+        <section id="first-time-tips-page" class="py-20 px-6 bg-pink-100 hidden">
+            <div class="container mx-auto text-center rounded-3xl p-8 shadow-2xl bg-white">
+                <h2 class="section-title text-center mb-6">第一次裝潢就上手！</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+                    妳是不是對裝潢充滿了美好想像，卻又因為複雜的流程和專業術語而感到卻步？別擔心！裝潢這件事一點都不可怕，就像準備一場盛大的派對，只要有對的指南，妳也能輕鬆成為自己的設計師！我們為妳精選了幾個最棒的資訊網站，從零開始，帶妳輕鬆走進裝潢の世界！
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+                    <a href="https://www.search.com/安邸AD家居生活網" target="_blank" class="block bg-pink-200 text-pink-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-pink-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">安邸AD家居生活網</h3>
+                        <p class="text-sm">全球最神秘的設計師都在這裡，他們用魔法般的設計，讓空間從此變得不再平凡。據說只要多看幾篇，妳的品味就會自動升級，甚至連家裡的貓都開始學會擺出時尚 pose。</p>
+                    </a>
+                    <a href="https://www.houzz.com" target="_blank" class="block bg-purple-200 text-purple-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-purple-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">Houzz</h3>
+                        <p class="text-sm">這不是普通的網站，它是一個充滿奇異生物的設計異世界。在這裡，妳能看到用雲朵當沙發、用星星做吊燈的瘋狂創意。只要一腳踏入，妳會發現設計的無限可能，甚至能找到比妳想像中更適合妳的「家」！</p>
+                    </a>
+                    <a href="https://www.searchome.net/article.aspx?id=66093" target="_blank" class="block bg-teal-200 text-teal-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-teal-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">幸福空間</h3>
+                        <p class="text-sm">據說這個網站背後有一隻會施展幸福魔法的貓頭鷹，它會用羽毛拍打妳的螢幕，讓妳點擊進去的每個空間都充滿溫暖與愛。在這裡，妳會發現幸福不是遠在天邊，而是妳的家可以觸手可及的美好！</p>
+                    </a>
+                </div>
+                <a href="#blog" class="cta-button bg-pink-500 text-white font-semibold py-3 px-8 rounded-full mt-12 inline-block">
+                    返回裝潢小知識
+                </a>
+            </div>
+        </section>
+
+        <!-- Taobao Tips Page -->
+        <section id="taobao-tips-page" class="py-20 px-6 bg-pink-100 hidden">
+            <div class="container mx-auto text-center rounded-3xl p-8 shadow-2xl bg-white">
+                <h2 class="section-title text-center mb-6">淘寶傢俱購買指南</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+                    想在淘寶上挖寶，卻不知道從何下手？我們為您整理了幾個熱門網站，讓您輕鬆找到高CP值的好物！
+                </p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                    <a href="https://s.taobao.com/search?catId=100&commend=all&from=sea_1_searchbutton&ie=utf8&initiative_id=tbindexz_20170306&page=1&preLoadOrigin=https%3A%2F%2Fworld.taobao.com&q=%E5%87%A1%E8%AF%BA%E5%88%9B%E6%84%8F%E9%97%A8%E5%A4%B4&search_type=item&sourceId=tb.index&spm=a2141.241046-tw.search_paste.0&ssid=s5-e&tab=all&type=p" target="_blank" class="block bg-pink-200 text-pink-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-pink-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">老闆腦袋撞到</h3>
+                        <p class="text-sm">
+                            據說老闆在一次意外中，腦袋撞到了宇宙的邊界，從此獲得了超凡的設計靈感！他的每一件家具都充滿了不可思議的巧思，能讓你的家瞬間變成異次元空間，客人一進門就驚呆了。我們強力推薦，因為這不是買家具，是買傳說！
+                        </p>
+                    </a>
+                    <a href="https://www.google.com/search?q=吱音家居" target="_blank" class="block bg-purple-200 text-purple-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-purple-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">吱音旗艦店</h3>
+                        <p class="text-sm">以設計感著稱的家具品牌，產品兼具實用與美感，適合追求獨特風格的妳。</p>
+                    </a>
+                    <a href="https://www.google.com/search?q=樹吱家居" target="_blank" class="block bg-teal-200 text-teal-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-teal-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">樹吱家居</h3>
+                        <p class="text-sm">在社群討論中獲得好評的家居品牌，提供多樣化的家具選擇，品質與設計兼具。</p>
+                    </a>
+                    <a href="https://www.google.com/search?q=左下家居" target="_blank" class="block bg-rose-200 text-rose-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-rose-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">左下家居</h3>
+                        <p class="text-sm">評價不錯的家居賣家之一，商品風格簡約大方，是打造質感空間的實惠選擇。</p>
+                    </a>
+                </div>
+                <a href="#blog" class="cta-button bg-pink-500 text-white font-semibold py-3 px-8 rounded-full mt-12 inline-block">
+                    返回裝潢小知識
+                </a>
+            </div>
+        </section>
+
+        <!-- Color Tips Page -->
+        <section id="color-tips-page" class="py-20 px-6 bg-pink-100 hidden">
+            <div class="container mx-auto text-center rounded-3xl p-8 shadow-2xl bg-white">
+                <h2 class="section-title text-center mb-6">用對顏色，改變心情</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+                    色彩能神奇地影響妳的情緒和思維，選擇對的顏色，就能創造出讓妳感到平靜、快樂或充滿活力的空間。我們為妳精選了兩個優質網站，帶妳深入探索色彩的療癒力量！
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                    <a href="https://ilady.life/color-healing-your-soul/" target="_blank" class="block bg-pink-200 text-pink-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-pink-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">妳的靈魂需要什麼顏色</h3>
+                        <p class="text-sm">
+                            這個網站將引導妳了解色彩如何與妳的內在連結，並找到能療癒妳靈魂的專屬色調。
+                        </p>
+                    </a>
+                    <a href="https://www.searchome.net/article.aspx?id=66093" target="_blank" class="block bg-purple-200 text-purple-700 font-semibold p-6 rounded-3xl shadow-md hover:bg-purple-300 transition duration-300">
+                        <h3 class="text-xl font-bold mb-2">32 款房間色彩搭配</h3>
+                        <p class="text-sm">
+                            在這裡，妳會發現超過 30 種超美的房間配色方案，搭配實景圖，讓妳的裝潢靈感瞬間爆棚！
+                        </p>
+                    </a>
+                </div>
+                <a href="#blog" class="cta-button bg-pink-500 text-white font-semibold py-3 px-8 rounded-full mt-12 inline-block">
+                    返回裝潢小知識
+                </a>
+            </div>
+        </section>
+
+        <!-- 18.8萬方案 Modal -->
+        <div id="packageModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-center justify-center p-4 transition-opacity duration-300">
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl max-w-4xl w-full relative transform transition-all duration-300 scale-95 opacity-0">
+                <!-- Close button -->
+                <button id="closePackageModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition z-10">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                
+                <div class="text-center">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-pink-500 mb-4 tracking-tight">18.8萬方案</h2>
+                    <p class="text-lg sm:text-xl font-semibold text-gray-700 mb-8">善用預算，打造您的夢想美業工作室！</p>
+                    
+                    <div class="max-w-4xl mx-auto bg-gray-50 rounded-2xl p-6 sm:p-8 shadow-inner">
+                        <div class="grid md:grid-cols-2 gap-8 text-left">
+                            <!-- Left column: What's included -->
+                            <div>
+                                <h3 class="text-2xl font-bold text-fuchsia-600 mb-4 border-b-2 border-fuchsia-200 pb-2">方案包含</h3>
+                                <ul class="space-y-3 text-gray-600">
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-fuchsia-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>天花板</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-fuchsia-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>油漆</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-fuchsia-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>地板</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-fuchsia-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>冷氣/網美牆</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-fuchsia-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>燈具</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-fuchsia-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>開關插座</li>
+                                </ul>
+                            </div>
+                            <!-- Right column: Free services -->
+                            <div>
+                                <h3 class="text-2xl font-bold text-pink-500 mb-4 border-b-2 border-pink-200 pb-2">〈包含免費服務〉</h3>
+                                <ul class="space-y-3 text-gray-600">
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-pink-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>空間規劃</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-pink-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>現場丈量</li>
+                                    <li class="flex items-center"><svg class="w-5 h-5 text-pink-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>專業諮詢</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <p class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">10坪內只要<span class="text-pink-500 underline decoration-wavy">18.8萬</span>！</p>
+                        <p class="text-md sm:text-lg text-gray-600">可依照風格任意搭配規劃設計</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Free Services Modal -->
+        <div id="servicesModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-center justify-center p-4 transition-opacity duration-300">
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl max-w-lg w-full relative transform transition-all duration-300 scale-95 opacity-0">
+                <!-- Close button -->
+                <button id="closeServicesModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition z-10">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                
+                <div class="text-center">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-pink-500 mb-8 tracking-tight">免費服務</h2>
+                    <div class="max-w-md mx-auto bg-gray-50 rounded-2xl p-6 sm:p-8 shadow-inner">
+                        <ul class="space-y-4 text-gray-700 text-xl text-left">
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>空間規劃</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>現場丈量</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>專業諮詢</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-pink-100 px-6 rounded-t-3xl">
+            <div class="container mx-auto text-center">
+                <h2 class="section-title text-center mb-6">立即聯絡我們</h2>
+                <p class="text-gray-600 text-lg mb-8">
+                    有任何疑問，或想讓夢想空間成真，都歡迎隨時聯絡我們。
+                </p>
+                <div class="flex items-center justify-center space-x-2 text-xl text-gray-700 mb-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <a href="tel:0901495155" class="hover:text-pink-500 transition">0901-495-155</a>
+                </div>
+                <!--
+                    由於網頁前端無法直接發送電子郵件，我們使用 Formspree 這個第三方服務來處理表單提交。
+                    請前往 https://formspree.io/，註冊並設定妳的表單，然後將下方 'action' 中的網址替換為妳專屬的網址。
+                    例如：<form action="https://formspree.io/f/f/YOUR_UNIQUE_FORM_ID" method="POST" class="max-w-xl mx-auto space-y-4">
+                -->
+                <form action="https://formspree.io/f/mjkezzel" method="POST" class="max-w-xl mx-auto space-y-4" id="contactForm">
+                    <input type="text" name="name" placeholder="妳的名字" class="w-full p-4 rounded-full border-2 border-pink-200 focus:outline-none focus:border-pink-500 transition duration-300" required>
+                    <input type="email" name="email" placeholder="妳的電子郵件" class="w-full p-4 rounded-full border-2 border-pink-200 focus:outline-none focus:border-pink-500 transition duration-300" required>
+                    <textarea name="message" placeholder="告訴我們妳的需求" rows="5" class="w-full p-4 rounded-3xl border-2 border-pink-200 focus:outline-none focus:border-pink-500 transition duration-300" required></textarea>
+                    <button type="submit" class="cta-button bg-pink-500 text-white font-semibold py-4 px-12 rounded-full shadow-lg">
+                        送出表單
+                    </button>
+                </form>
+                <div id="formStatus" class="mt-4 text-center hidden"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 text-center">
+            <div class="container mx-auto px-6">
+                <p>&copy; 2024 夢想製造所Dream Maker. All Rights Reserved.</p>
+            </div>
+        </footer>
+    
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const promptInput = document.getElementById('promptInput');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultOutput = document.getElementById('resultOutput');
+        const designContent = document.getElementById('designContent');
+
+        let chatHistory = [];
+
+        generateBtn.addEventListener('click', async () => {
+            const userPrompt = promptInput.value.trim();
+            if (!userPrompt) return;
+
+            // Show loading state
+            loadingIndicator.classList.remove('hidden');
+            generateBtn.disabled = true;
+            resultOutput.classList.add('hidden');
+            designContent.innerHTML = '';
+
+            const systemPrompt = "妳是一位專業的室內設計師，專門為女性提供溫馨且實用的裝潢建議。妳的風格友善、易於理解，且充滿創造力。當使用者輸入一個空間描述和幾個關鍵字時，請為她們提供一個詳細的、分步驟的改造計畫。請從「空間主題靈感」、「色彩與材質」、「家具與動線」、「燈光設計」和「裝飾品與軟裝」這幾個方面來構思內容。使用繁體中文回應。";
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+
+            chatHistory = [{ role: "user", parts: [{ text: userPrompt }] }];
+
+            try {
+                const payload = {
+                    contents: chatHistory,
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    const htmlText = text.replace(/\n/g, '<br>');
+                    designContent.innerHTML = htmlText;
+                    resultOutput.classList.remove('hidden');
+                    chatHistory.push({ role: "model", parts: [{ text: text }] });
+                } else {
+                    designContent.innerHTML = '抱歉，目前無法生成設計靈感。請稍後再試一次。';
+                    resultOutput.classList.remove('hidden');
+                }
+
+            } catch (error) {
+                console.error('API call failed:', error);
+                designContent.innerHTML = '抱歉，發生錯誤。請檢查網路連線或稍後再試。';
+                resultOutput.classList.remove('hidden');
+            } finally {
+                // Hide loading state
+                loadingIndicator.classList.add('hidden');
+                generateBtn.disabled = false;
+            }
+        });
+
+        // Formspree submission handling
+        const form = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            const button = event.target.querySelector('button[type="submit"]');
+
+            // Show loading state and disable button
+            button.disabled = true;
+            button.innerHTML = '傳送中...';
+            formStatus.classList.add('hidden');
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    formStatus.innerHTML = '<p class="text-green-600 font-semibold">表單已成功送出！我們將儘快與您聯絡。</p>';
+                    form.reset();
+                } else {
+                    const result = await response.json();
+                    if (Object.hasOwn(result, 'errors')) {
+                        const errorMsg = result.errors.map(err => err.message).join(", ");
+                        formStatus.innerHTML = `<p class="text-red-600 font-semibold">表單送出失敗：${errorMsg}</p>`;
+                    } else {
+                        formStatus.innerHTML = '<p class="text-red-600 font-semibold">表單送出失敗，請再試一次。</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Form submission failed:', error);
+                formStatus.innerHTML = '<p class="text-red-600 font-semibold">表單送出時發生錯誤。請檢查網路連線。</p>';
+            } finally {
+                // Re-enable button and show status
+                button.disabled = false;
+                button.innerHTML = '送出表單';
+                formStatus.classList.remove('hidden');
+            }
+        });
+
+        // --- REFACTORED MODAL LOGIC ---
+        function setupModal(modal, openBtn, closeBtn) {
+            // Ensure elements exist before adding listeners
+            if (!modal || !openBtn || !closeBtn) return;
+
+            const modalContent = modal.querySelector('div');
+
+            function open() {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                }, 10);
+            }
+
+            function close() {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            }
+
+            openBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                open();
+            });
+
+            closeBtn.addEventListener('click', close);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    close();
+                }
+            });
+        }
+
+        // Setup for Package Modal
+        setupModal(
+            document.getElementById('packageModal'),
+            document.querySelector('a[href="#package-page"]'),
+            document.getElementById('closePackageModalBtn')
+        );
+
+        // Setup for Services Modal
+        setupModal(
+            document.getElementById('servicesModal'),
+            document.querySelector('a[href="#free-services-page"]'),
+            document.getElementById('closeServicesModalBtn')
+        );
+
+        // Navigation logic for tips
+        const mainContentSections = document.querySelectorAll('#main-content > section, #main-content > header');
+        const blogSection = document.getElementById('blog');
+        const firstTimePage = document.getElementById('first-time-tips-page');
+        const taobaoPage = document.getElementById('taobao-tips-page');
+        const colorPage = document.getElementById('color-tips-page');
+
+        const tipPages = [firstTimePage, taobaoPage, colorPage];
+
+        function showTipPage(pageToShow) {
+            mainContentSections.forEach(s => s.classList.add('hidden'));
+            pageToShow.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showMainContent(sectionToScrollTo) {
+            tipPages.forEach(p => p.classList.add('hidden'));
+            mainContentSections.forEach(s => s.classList.remove('hidden'));
+            if(sectionToScrollTo){
+                 sectionToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        document.querySelector('a[href="#first-time-tips-page"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            // This button now opens a modal, but we keep the old logic for the blog page links
+            // The modal logic is handled by setupModal
+            const isFromBlog = e.target.closest('#blog');
+            if (isFromBlog) {
+                showTipPage(firstTimePage);
+            }
+        });
+        
+        document.querySelector('a[href="#taobao-tips-page"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            showTipPage(taobaoPage);
+        });
+
+        document.querySelector('a[href="#color-tips-page"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            showTipPage(colorPage);
+        });
+
+        document.querySelectorAll('a[href="#blog"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainContent(blogSection);
+            });
+        });
+    </script>
+
+</body>
+</html>
+
